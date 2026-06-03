@@ -48,7 +48,9 @@ const sortedClients = [
   { name: 'Pangea', person: 'Deepak Sharma', target: 20000, achieved: 0, activeDays: 31 },
   { name: 'RSR', person: 'Deepak Sharma', target: 10000, achieved: 0, activeDays: 31 },
   { name: 'Epson', person: 'Deepak Sharma', target: 20000, achieved: 0, activeDays: 31 }
-];clients.forEach(c => {
+];
+
+clients.forEach(c => {
   c.pct = c.target > 0 ? Math.round(c.achieved / c.target * 100) : (c.achieved > 0 ? 999 : 0);
   c.avgDay = c.activeDays > 0 ? Math.round(c.achieved / c.activeDays) : 0;
   c.remaining = Math.max((c.target || 0) - c.achieved, 0);
