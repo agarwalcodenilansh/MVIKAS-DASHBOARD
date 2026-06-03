@@ -25,29 +25,29 @@ window.switchTab = switchTab;
 // ─── RAW DATA FROM NUMBERS FILE ───────────────────────────────────────────────
 
 // All clients with tonnage data (Sheet 4)
-const sortedClients = [
+const clients = [
   { name: 'Carrier Refrigeration', person: 'Sangeet Dhasmana', target: 300000, achieved: 228544.57, activeDays: 31 },
-  { name: 'Bombax (HYD)', person: 'Chirag Kumar', target: 85111, achieved: 86535.47, activeDays: 31 },
-  { name: 'Carrier CTD', person: 'Deepak Sharma', target: 70362, achieved: 33510.12, activeDays: 31 },
-  { name: 'Haier CCR', person: 'Shiva', target: 55000, achieved: 23771.55, activeDays: 31 },
-  { name: 'Sukuga Technologies', person: 'Shiva', target: 17000, achieved: 18343.53, activeDays: 31 },
-  { name: 'Mitras Technocrafts', person: 'Shiva', target: 10000, achieved: 17745.42, activeDays: 31 },
-  { name: 'Grover Innovations', person: 'Shiva', target: 10000, achieved: 14251.52, activeDays: 31 },
-  { name: 'Cosmos Pumps', person: 'Shiva', target: 20000, achieved: 14105.22, activeDays: 31 },
-  { name: 'Loom Solar', person: 'Deepak Sharma', target: 120000, achieved: 13540, activeDays: 31 },
-  { name: 'Kumar Services', person: 'Deepak Sharma', target: 4000, achieved: 13026.8, activeDays: 31 },
-  { name: 'Oneiric Appliances', person: 'Deepak Sharma', target: 32876, achieved: 4768.98, activeDays: 31 },
-  { name: 'Medical Science', person: 'Chirag Kumar', target: 15000, achieved: 3908, activeDays: 31 },
-  { name: 'Vaidrishi Laboratories', person: 'Chirag Kumar', target: 7514, achieved: 3323.08, activeDays: 31 },
-  { name: 'Indu Sports', person: 'Chirag Kumar', target: 1047, achieved: 1047, activeDays: 31 },
-  { name: 'Frick', person: 'Shiva', target: 807, achieved: 807, activeDays: 31 },
-  { name: 'Edusoft Healthcare', person: 'Deepak Sharma', target: 10000, achieved: 536.05, activeDays: 31 },
-  { name: 'Aurinko Healthcare', person: 'Chirag Kumar', target: 1047, achieved: 468, activeDays: 31 },
-  { name: 'Global Impex', person: 'Anjali', target: 1000, achieved: 0, activeDays: 31 },
-  { name: 'GCPA', person: 'Shiva', target: 25000, achieved: 0, activeDays: 31 },
-  { name: 'Pangea', person: 'Deepak Sharma', target: 20000, achieved: 0, activeDays: 31 },
-  { name: 'RSR', person: 'Deepak Sharma', target: 10000, achieved: 0, activeDays: 31 },
-  { name: 'Epson', person: 'Deepak Sharma', target: 20000, achieved: 0, activeDays: 31 }
+  { name: 'Carrier CTD',           person: 'Deepak Sharma',    target: 70362,  achieved: 33510.12,  activeDays: 31 },
+  { name: 'Mitras Technocrafts',   person: 'Shiva',            target: 10000,  achieved: 17745.42,  activeDays: 31  },
+  { name: 'Grover Innovations',    person: 'Shiva',            target: 10000,  achieved: 14251.52,    activeDays: 31  },
+  { name: 'Haier CCR',             person: 'Shiva',            target: 55000,  achieved: 23771.55,  activeDays: 31 },
+  { name: 'Bombax (HYD)',          person: 'Chirag Kumar',     target: 85111,  achieved: 86535.47,  activeDays: 31 },
+  { name: 'Global Impex',          person: 'Anjali',           target: 1000,   achieved: 0,      activeDays: 31  },
+  { name: 'Kumar Services',        person: 'Deepak Sharma',    target: 4000,   achieved: 13026.8,  activeDays: 31 },
+  { name: 'Aurinko Healthcare',    person: 'Chirag Kumar',     target: 1047,   achieved: 468,    activeDays: 31  },
+  { name: 'Edusoft Healthcare',    person: 'Deepak Sharma',    target: 10000,  achieved: 536.05,    activeDays: 31  },
+  { name: 'Oneiric Appliances',    person: 'Deepak Sharma',    target: 32876,  achieved: 4768.98,   activeDays: 31  },
+  { name: 'Vaidrishi Laboratories',person: 'Chirag Kumar',     target: 7514,   achieved: 3323.08,   activeDays: 31  },
+  { name: 'Sukuga Technologies',   person: 'Shiva',            target: 17000,  achieved: 18343.53,  activeDays: 31 },
+  { name: 'Cosmos Pumps',          person: 'Shiva',            target: 20000,  achieved: 14105.22,  activeDays: 31 },
+  { name: 'Loom Solar',            person: 'Deepak Sharma',    target: 120000, achieved: 13540,  activeDays: 31 },
+  { name: 'GCPA',                  person: 'Shiva',            target: 25000,  achieved: 0,      activeDays: 31  },
+  { name: 'Pangea',                person: 'Deepak Sharma',    target: 20000,  achieved: 0,      activeDays: 31  },
+  { name: 'RSR',                   person: 'Deepak Sharma',    target: 10000,  achieved: 0,      activeDays: 31  },
+  { name: 'Medical Science',       person: 'Chirag Kumar',     target: 15000,  achieved: 3908,   activeDays: 31  },
+  { name: 'Epson',                 person: 'Deepak Sharma',    target: 20000,  achieved: 0,      activeDays: 31  },
+  { name: 'Frick',                 person: 'Shiva',            target: 807,      achieved: 807,    activeDays: 31  },
+  { name: 'Indu Sports',           person: 'Chirag Kumar',     target: 1047,      achieved: 1047,     activeDays: 31  },
 ];
 
 clients.forEach(c => {
