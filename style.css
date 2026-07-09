@@ -87,12 +87,39 @@ body { font-family: var(--font-sans); color: var(--text-primary); background: va
 .badge.success { background: #ecfdf5; color: #065f46; border: 1px solid #d1fae5; }
 
 /* Progress bars */
-.client-row { display: grid; grid-template-columns: minmax(150px, 180px) minmax(90px, 120px) 1fr 52px minmax(90px, 110px); gap: 12px; align-items: center; margin-bottom: 10px; font-size: 0.875rem; padding: 8px 10px; border-radius: var(--border-radius-sm); border: 1px solid transparent; transition: all 0.15s; }
+.client-row { display: grid; grid-template-columns: minmax(160px, 200px) minmax(90px, 120px) 1fr 52px minmax(120px, 170px); gap: 12px; align-items: center; margin-bottom: 10px; font-size: 0.875rem; padding: 8px 10px; border-radius: var(--border-radius-sm); border: 1px solid transparent; transition: all 0.15s; }
 .client-row:hover { background: #f8fafc; border-color: var(--border-color); }
-.client-name { color: var(--text-primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.client-name { color: var(--text-primary); font-weight: 600; display: flex; align-items: center; min-width: 0; }
+.client-name .client-name-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .client-person { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .prog-bar-wrap { background: #e2e8f0; border-radius: 99px; height: 8px; overflow: hidden; }
 .prog-bar { height: 100%; border-radius: 99px; min-width: 4px; transition: width 0.5s ease-out; }
 .pct-text { font-size: 0.875rem; font-weight: 700; color: var(--text-primary); text-align: right; }
 .client-tonnage { font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); text-align: right; }
 .footnote { font-size: 0.8125rem; color: var(--text-secondary); margin-top: 16px; padding: 12px 16px; background: #f8fafc; border-radius: var(--border-radius-sm); border-left: 3px solid var(--color-primary); border-top: 1px solid var(--border-color); }
+
+/* Tonnage panel — filter + tags */
+.tonnage-card-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+.tonnage-filters { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.tonnage-filter { display: flex; align-items: center; gap: 8px; }
+.tonnage-filter label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+.tonnage-filter select { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 500; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 7px 10px; cursor: pointer; transition: border-color 0.15s; }
+.tonnage-filter select:hover { border-color: var(--border-color-hover); }
+.tonnage-filter select:focus { outline: none; border-color: var(--color-primary); }
+
+.new-tag { display: inline-flex; align-items: center; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: #fff; background: linear-gradient(90deg,#6366f1,#8b5cf6); padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+
+.tonnage-empty { padding: 24px 10px; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+
+/* Clickable KPI card → drill-down panel */
+.metric-clickable { cursor: pointer; }
+.metric-clickable:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.metric-link-hint { font-size: 0.6875rem; font-weight: 600; color: var(--color-danger); margin-top: 8px; opacity: 0; transform: translateX(-4px); transition: all 0.2s; }
+.metric-clickable:hover .metric-link-hint { opacity: 1; transform: translateX(0); }
+
+.tonnage-filter input[type="text"] { font-family: var(--font-sans); font-size: 0.8125rem; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 7px 10px; min-width: 220px; }
+.tonnage-filter input[type="text"]:focus { outline: none; border-color: var(--color-primary); }
+
+/* Scrollable table (EDD Crossed drill-down) with sticky header */
+.tbl-scroll { max-height: 560px; overflow-y: auto; }
+.tbl-scroll thead th { position: sticky; top: 0; z-index: 1; box-shadow: 0 1px 0 var(--border-color); }
