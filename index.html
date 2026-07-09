@@ -16,8 +16,8 @@
     <div class="header-container">
       <img src="logo.png" alt="MVIKAS Logo" class="brand-logo">
       <div class="header-info">
-        <span class="badge-date">As of May 31, 2026</span>
-        <span class="badge-elapsed">31 / 31 days elapsed · May 2026</span>
+        <span class="badge-date">As of July 8, 2026</span>
+        <span class="badge-elapsed">8 / 31 days elapsed · July 2026</span>
       </div>
     </div>
   </header>
@@ -36,10 +36,11 @@
         <div class="metric-val" id="kpi-daily-avg">—</div>
         <div class="metric-sub">Month Tonnage ÷ Days in Month</div>
       </div>
-      <div class="metric danger">
+      <div class="metric danger metric-clickable" onclick="goToEddDetail()" title="Click to view crossed EDD order details" role="button" tabindex="0" onkeypress="if(event.key==='Enter')goToEddDetail()">
         <div class="metric-label">EDD Crossed (Delayed)</div>
         <div class="metric-val" id="kpi-edd">—</div>
         <div class="metric-sub" id="kpi-edd-pct">of open shipments</div>
+        <div class="metric-link-hint">View order details →</div>
       </div>
       <div class="metric warning">
         <div class="metric-label">Due Tomorrow</div>
@@ -49,17 +50,17 @@
       <div class="metric success">
         <div class="metric-label">Booked Yesterday</div>
         <div class="metric-val" id="kpi-booked">—</div>
-        <div class="metric-sub">May 30, 2026</div>
+        <div class="metric-sub">July 8, 2026</div>
       </div>
       <div class="metric">
-        <div class="metric-label">Daily Tonnage (Today)</div>
+        <div class="metric-label">Daily Tonnage </div>
         <div class="metric-val" id="kpi-daily-ton">—</div>
         <div class="metric-sub">All clients combined</div>
       </div>
       <div class="metric">
         <div class="metric-label">Month Tonnage Till Date</div>
         <div class="metric-val" id="kpi-month-ton">—</div>
-        <div class="metric-sub">May 2026 cumulative</div>
+        <div class="metric-sub">July 2026 cumulative</div>
       </div>
     </section>
 
@@ -68,7 +69,7 @@
       <button class="tab active" role="tab" id="tab-btn-classify" aria-selected="true" aria-controls="tab-classify" onclick="switchTab('classify',this)">Shipment Classification</button>
       <button class="tab" role="tab" id="tab-btn-tonnage" aria-selected="false" aria-controls="tab-tonnage" onclick="switchTab('tonnage',this)">Tonnage % by Client</button>
       <button class="tab" role="tab" id="tab-btn-daily" aria-selected="false" aria-controls="tab-daily" onclick="switchTab('daily',this)">Daily Avg & Completion</button>
-     <!-- <button class="tab" role="tab" id="tab-btn-kam" aria-selected="false" aria-controls="tab-kam" onclick="switchTab('kam',this)">KAM Performance</button> -->
+      <button class="tab" role="tab" id="tab-btn-edd" aria-selected="false" aria-controls="tab-edd" onclick="switchTab('edd',this)">EDD Crossed</button>
     </div>
 
     <!-- ══════════════════════════════════════════════════════
@@ -103,14 +104,14 @@
         <div class="card">
           <div class="section-title">Due tomorrow — orders by customer</div>
           <div class="legend">
-            <span><span class="legend-dot" style="background:#f59e0b"></span>Orders due June 30</span>
+            <span><span class="legend-dot" style="background:#f59e0b"></span>Orders due July 10</span>
           </div>
           <div class="chart-wrap" style="height:260px">
             <canvas id="dueTmrChart"></canvas>
           </div>
         </div>
         <div class="card">
-          <div class="section-title">Booked yesterday — by customer</div>
+          <div class="section-title">Booked yesterday (July 8) — by customer</div>
           <div class="legend">
             <span><span class="legend-dot" style="background:#10b981"></span>Shipments booked</span>
           </div>
@@ -140,25 +141,48 @@
     ══════════════════════════════════════════════════════ -->
     <div id="tab-tonnage" class="panel" role="tabpanel">
       <div class="card">
-        <div class="section-title">Tonnage achieved vs monthly target — % completion (all clients with targets)</div>
+        <div class="tonnage-card-head">
+          <div class="section-title" style="margin-bottom:0" id="tonnage-panel-title">Tonnage achieved vs monthly target — % completion</div>
+          <div class="tonnage-filters">
+            <div class="tonnage-filter">
+              <label for="tonnage-period-filter">Period</label>
+              <select id="tonnage-period-filter" onchange="setTonnagePeriod(this.value)">
+                <option value="full" selected>Full Month (Till Date)</option>
+                <option value="first10">First 10 Days</option>
+                <option value="mid10">Mid 10 Days</option>
+                <option value="last10">Last 10 Days</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="legend" id="tonnage-legend"></div>
         <div id="tonnage-bars"></div>
       </div>
       <div class="row2">
         <div class="card">
-          <div class="section-title">Achieved vs target comparison  (top 8)</div>
+          <div class="section-title">Monthly target distribution (top 8)</div>
           <div class="chart-wrap" style="height:360px">
             <canvas id="targetChart"></canvas>
           </div>
         </div>
         <div class="card">
-          <div class="section-title">Monthly Achieved (top 8)</div>
+          <div class="section-title">Achieved vs target comparison (top 8)</div>
           <div class="legend">
-           <!-- <span><span class="legend-dot" style="background:#10b981"></span>Achieved</span>
-            <span><span class="legend-dot" style="background:#475569"></span>Target</span> -->
+            <span><span class="legend-dot" style="background:#10b981"></span>Achieved</span>
+            <span><span class="legend-dot" style="background:#475569"></span>Target</span>
           </div>
           <div class="chart-wrap" style="height:360px">
             <canvas id="achChart"></canvas>
           </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title">KAM performance summary</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>KAM Name</th><th>Total Target (kg)</th><th>Total Achieved (kg)</th><th>% Done</th></tr></thead>
+            <tbody id="kam-summary-body"></tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -180,9 +204,8 @@
             <tbody id="daily-table-body"></tbody>
           </table>
         </div>
-       <!-- <p class="footnote">* Extrapolated from current avg kg/active day. Remaining days in May: 1 (May 31). Days exceeding 1 means target cannot be met in May.</p> -->
+        <p class="footnote">* Extrapolated from current avg kg/active day. Remaining days in July: 23 (through July 31).</p>
       </div>
-      <!--
       <div class="row2">
         <div class="card">
           <div class="section-title">Avg kg dispatched per active day (top 10)</div>
@@ -201,71 +224,37 @@
           <div class="chart-wrap" style="height:360px">
             <canvas id="daysChart"></canvas>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
 
     <!-- ══════════════════════════════════════════════════════
-         PANEL 4 — KAM PERFORMANCE
-    ══════════════════════════════════════════════════════ 
-    <div id="tab-kam" class="panel" role="tabpanel">
-      <div class="row2">
-        <div class="card">
-          <div class="section-title">KAM-wise tonnage share (achieved)</div>
-          <div class="chart-wrap" style="height:300px">
-            <canvas id="kamDonut"></canvas>
+         PANEL 5 — EDD CROSSED (drill-down from KPI card)
+    ══════════════════════════════════════════════════════ -->
+    <div id="tab-edd" class="panel" role="tabpanel">
+      <div class="card">
+        <div class="tonnage-card-head">
+          <div class="section-title" style="margin-bottom:0">EDD crossed — order-level detail</div>
+          <div class="tonnage-filter">
+            <label for="edd-search">Search</label>
+            <input type="text" id="edd-search" placeholder="Order ID, customer, or transporter…" oninput="renderEddDetail(this.value)">
           </div>
         </div>
-        <div class="card">
-          <div class="section-title">KAM performance summary</div>
-          <div class="tbl-wrap">
-            <table class="tbl">
-              <thead><tr><th>KAM Name</th><th>Clients</th><th>Total Target</th><th>Achieved</th><th>% Done</th><th>Progress</th></tr></thead>
-              <tbody id="kam-table-body"></tbody>
-            </table>
-          </div>
+        <div class="legend" id="edd-detail-count" style="margin-bottom:10px"></div>
+        <div class="tbl-wrap tbl-scroll">
+          <table class="tbl">
+            <thead>
+              <tr><th>Order ID</th><th>Customer Name</th><th>Transporter Name</th><th>EDD</th><th>Delay Reason</th></tr>
+            </thead>
+            <tbody id="edd-detail-body"></tbody>
+          </table>
         </div>
       </div>
     </div>
-  -->
+
   </div>
 
   <script src="script.js"></script>
 
-  <script>
-    // Build open shipments table
-    const openData = [
-      { name: 'Bombax', open: 202, edd: 87, due: 24 },
-      { name: 'Carrier Refrigeration', open: 153, edd: 60, due: 50 },
-      { name: 'Sukuga', open: 39, edd: 23, due: 6 },
-      { name: 'Haier CCR', open: 31, edd: 16, due: 4 },
-      { name: 'Carrier CTD', open: 20, edd: 5, due: 3 },
-      { name: 'MITRAS', open: 13, edd: 12, due: 1 },
-      { name: 'Loom Solar', open: 7, edd: 1, due: 2 },
-      { name: 'Cosmos Pumps', open: 6, edd: 1, due: 1 },
-      { name: 'Vaidrishi Laboratories', open: 5, edd: 5, due: 0 },
-      { name: 'SCJ', open: 3, edd: 3, due: 0 },
-      { name: 'Paramount Surgimed', open: 3, edd: 1, due: 0 },
-      { name: 'Kumar Services', open: 2, edd: 1, due: 1 },
-      { name: 'Medical Science', open: 2, edd: 2, due: 0 },
-      { name: 'Carrier Global', open: 1, edd: 1, due: 0 },
-      { name: 'Indu Sports', open: 1, edd: 1, due: 0 },
-      { name: 'Aurinko Healthcare', open: 1, edd: 0, due: 0 },
-    ];
-    const tbody = document.getElementById('open-table-body');
-    openData.forEach((d, i) => {
-      const pctDelayed = Math.round(d.edd / d.open * 100);
-      const risk = pctDelayed >= 70 ? ['Critical','delayed'] : pctDelayed >= 40 ? ['High','delayed'] : pctDelayed >= 20 ? ['Medium','open'] : ['Low','due'];
-      tbody.innerHTML += `<tr>
-        <td style="color:#94a3b8;font-size:0.8rem">${i+1}</td>
-        <td><strong>${d.name}</strong></td>
-        <td>${d.open}</td>
-        <td style="color:#dc2626;font-weight:600">${d.edd}</td>
-        <td style="color:#d97706;font-weight:600">${d.due}</td>
-        <td style="color:${pctDelayed>=50?'#dc2626':'#d97706'};font-weight:700">${pctDelayed}%</td>
-        <td><span class="badge ${risk[1]}">${risk[0]}</span></td>
-      </tr>`;
-    });
-  </script>
 </body>
 </html>
