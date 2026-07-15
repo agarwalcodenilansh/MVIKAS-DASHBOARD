@@ -57,8 +57,8 @@ const clients = [
   { name: 'Epson',                           person: 'Sangeet Dhasmana',  target: 10000,     achieved: 1973.83,  activeDays: 13, isNew: true },
   { name: 'KRF',                             person: 'Not Alloted',       target: 0,         achieved: 0,        activeDays: 13, isNew: true },
   { name: 'Conficore',                       person: 'Sangeet Dhasmana',  target: 5000,      achieved: 445.0,    activeDays: 13, isNew: true },
-  { name: 'KTB',                             person: 'Sangeet Dhasmana',       target: 0,         achieved: 1014.03,  activeDays: 13 },
-  { name: 'MV-Zenotel',                      person: 'Sangeet Dhasmana',       target: 0,         achieved: 80.0,     activeDays: 13 },
+  { name: 'KTB',                             person: 'Not Alloted',       target: 0,         achieved: 1014.03,  activeDays: 13 },
+  { name: 'MV-Zenotel',                      person: 'Not Alloted',       target: 0,         achieved: 80.0,     activeDays: 13 },
 ];
 
 clients.forEach(c => {
@@ -345,7 +345,7 @@ function renderEddDetail(filterText) {
   if (countEl) countEl.textContent = `${rows.length} of ${eddDetail.length} orders`;
 
   if (rows.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:24px">No matching orders.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:24px">No matching orders.</td></tr>`;
     return;
   }
 
@@ -354,7 +354,6 @@ function renderEddDetail(filterText) {
       <td>${r.name}</td>
       <td>${r.transporter || '—'}</td>
       <td style="color:#dc2626;font-weight:600">${r.edd || '—'}</td>
-      <td>${r.reason ? r.reason : '<span style="color:#94a3b8">Not specified</span>'}</td>
     </tr>`).join('');
 }
 window.renderEddDetail = renderEddDetail;
