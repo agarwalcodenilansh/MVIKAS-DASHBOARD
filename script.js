@@ -57,8 +57,8 @@ const clients = [
   { name: 'Epson',                           person: 'Sangeet Dhasmana',  target: 10000,     achieved: 1973.83,  activeDays: 13, isNew: true },
   { name: 'KRF',                             person: 'Not Alloted',       target: 0,         achieved: 0,        activeDays: 13, isNew: true },
   { name: 'Conficore',                       person: 'Sangeet Dhasmana',  target: 5000,      achieved: 445.0,    activeDays: 13, isNew: true },
-  { name: 'KTB',                             person: 'Not Alloted',       target: 0,         achieved: 1014.03,  activeDays: 13 },
-  { name: 'MV-Zenotel',                      person: 'Not Alloted',       target: 0,         achieved: 80.0,     activeDays: 13 },
+  { name: 'KTB',                             person: 'Sangeet Dhasmana',       target: 0,         achieved: 1014.03,  activeDays: 13 },
+  { name: 'MV-Zenotel',                      person: 'Sangeet Dhasmana',       target: 0,         achieved: 80.0,     activeDays: 13 },
 ];
 
 clients.forEach(c => {
